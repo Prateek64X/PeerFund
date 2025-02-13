@@ -1,43 +1,36 @@
-# Duck Agents
+# PeerFund
 
-P2P agents that can communicate and process messages using LLM capabilities.
+PeerFund is a **decentralized crowdfunding platform** powered by **Duck AI Agents**. It verifies projects using AI, scores them based on uniqueness, cost-effectiveness, and practicality, and helps backers make informed funding decisions. 
+
+## Features
+
+- **AI-Driven Project Validation** – DUCK AI Agents analyze projects and assign scores.
+- **Decentralized Crowdfunding** – Smart contracts securely manage funds.
+- **Transparent Funding Decisions** – AI-generated insights help backers choose wisely.
+- **Milestone-Based Payouts** – Funds are released as projects progress.
+- **Multi-Chain Support** – Works across different blockchains.
+
+---
 
 ## Quick Start
 
-1. Install dependencies:
+### 1. Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-2. Copy `.env.example` to `.env` and fill in required values:
+### 2. Copy Environment Variables
 
 ```bash
 cp .env.example .env
 ```
 
-Required environment variables:
-
-- `AGENT_NAME`: Name for your agent instance
-- `P2P_NODE_PATH`: Path to P2P node executable
-- `PRIVATE_KEY`: Private key for P2P network identity
-- `OPENAI_API_KEY`: OpenAI API key for LLM processing
-
-## Creating Your Agent
-
-1. Update the `.env` file with your agent name and ETH private key with a small amount of ETH on base. The node will automatically register your agent with the network.
-
-2. Set up your environment:
-   - Copy the generated private key to your `.env` file as `PRIVATE_KEY`
-   - Set a unique `AGENT_NAME` in your `.env` file
-   - Add your `OPENAI_API_KEY` to the `.env` file
-   - For local development, set `P2P_NODE_PATH` to the path of your p2p-node.js
-
-Example `.env` configuration:
+Set required environment variables:
 
 ```bash
-AGENT_NAME=my-first-agent
-PRIVATE_KEY=<your-generated-private-key>
+AGENT_NAME=peerfund-agent
+PRIVATE_KEY=<your-private-key>
 OPENAI_API_KEY=<your-openai-api-key>
 P2P_NODE_PATH=./sdk/p2p-node.js
 P2P_PORT=8000
@@ -45,187 +38,81 @@ GRPC_PORT=50051
 LOG_TO_CONSOLE=true
 ```
 
-## Customizing Your Agent
-
-The agent's behavior is defined in `src/agent.ts`. This is where you can customize how your agent processes messages.
-
-1. Open `src/agent.ts`
-2. Modify the OpenAI configuration and prompt handling:
-
-```typescript
-// Example agent.ts customization
-export async function processMessage(content: string): Promise<string> {
-  try {
-    const completion = await openai.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: "You are a helpful AI assistant that specializes in...",
-        },
-        { role: "user", content },
-      ],
-      model: "gpt-3.5-turbo",
-      // Add additional parameters like temperature, max_tokens, etc.
-    });
-
-    return completion.choices[0].message.content || "No response generated";
-  } catch (error) {
-    Logger.error("llm", "Failed to process message with OpenAI", {
-      error: error instanceof Error ? error.message : String(error),
-    });
-    return "Sorry, I encountered an error processing your message.";
-  }
-}
-```
-
-You can customize:
-
-- System prompt to define agent personality and capabilities
-- OpenAI model selection (e.g., gpt-4, gpt-3.5-turbo)
-- Model parameters (temperature, max tokens, etc.)
-- Error handling and response formatting
-- Additional processing logic before/after LLM calls
-
-## Development
-
-Run locally:
+### 3. Start Your Agent
 
 ```bash
 pnpm run start
 ```
 
-## Deployment
-
-The agent can be deployed to Fly.io easily:
-
-1. Install Fly CLI:
+### 4. Run the Client
 
 ```bash
-curl -L https://flyctl.io/install.sh | sh
-OR
-powershell -Command "iwr https://flyctl.io/install.ps1 -useb | iex"
+cd client
+npm install
+npm start
 ```
 
-2. Login to Fly:
+---
 
-```bash
-flyctl auth login
+## How PeerFund Works
+
+### **1. Project Submission**
+Creators submit project details, including objectives, budget, and execution plans.
+
+### **2. AI Validation & Scoring** *(Powered by DUCK AI Agents)*
+- **DUCK AI Agents** analyze projects and assign scores based on:
+  - **Total Score** (Overall project viability)
+  - **Uniqueness** (Is it original or a clone?)
+  - **Cost-effectiveness** (Is the budget reasonable?)
+  - **Practicality** (Is the idea feasible?)
+
+### **3. Community Verification & Funding**
+- AI-generated scores help backers make informed funding choices.
+- Once validated, projects enter smart contract-based funding rounds.
+
+### **4. Milestone-Based Payouts**
+- Funds are released in phases based on project progress.
+- AI agents continue monitoring to prevent misuse of funds.
+
+---
+
+## Customizing AI Agents
+
+Modify `src/agent.ts` to adjust AI behavior:
+
+```typescript
+export async function processMessage(content: string): Promise<string> {
+  try {
+    const completion = await openai.chat.completions.create({
+      messages: [
+        { role: "system", content: "You are an AI specializing in project evaluation..." },
+        { role: "user", content },
+      ],
+      model: "gpt-4",
+    });
+
+    return completion.choices[0].message.content || "No response generated";
+  } catch (error) {
+    return "Error processing request.";
+  }
+}
 ```
 
-3. Set required secrets (sensitive variables):
+You can adjust:
+- System prompts for AI personality.
+- OpenAI model (e.g., `gpt-4`, `gpt-3.5-turbo`).
+- Scoring criteria and validation logic.
 
-```bash
-# Set sensitive environment variables
-flyctl secrets set PRIVATE_KEY="your-private-key" \
-               OPENAI_API_KEY="your-openai-api-key"
-```
+---
 
-4. Create a new app:
+## Contribution
 
-```bash
-flyctl launch
-```
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
 
-Non-sensitive configuration is already set in `flyctl.toml` under the [env] section:
+---
 
-```toml
-[env]
-  NODE_ENV = "production"
-  AGENT_NAME = "ducky"
-  P2P_PORT = "8000"
-  GRPC_PORT = "50051"
-  P2P_NODE_PATH = "/app/sdk/p2p-node.js"
-  LOG_TO_CONSOLE = "true"
-```
+## License
 
-5. Deploy:
-
-```bash
-pnpm run deploy:flyctl
-```
-
-6. Check logs:
-
-```bash
-pnpm run logs
-```
-
-7. Check status:
-
-```bash
-pnpm run status
-```
-
-The deployment uses the configuration in `flyctl.toml`, which sets up:
-
-- TCP service on port 8000 for P2P network communication
-- Internal gRPC service on port 50051 for P2P node communication
-- Auto-scaling and monitoring
-
-## Architecture
-
-### gRPC Communication Flow
-
-The Duck Agent uses a gRPC-based architecture for communication between components:
-
-```mermaid
-sequenceDiagram
-    participant Network as P2P Network
-    participant Node as P2P Node
-    participant GRPC as gRPC Server
-    participant Client as P2PGrpcClient
-    participant Agent as Agent Class
-
-    %% Initialization
-    Agent->>Client: new Agent()
-    Client->>GRPC: Connect(port, name)
-    GRPC->>Node: Start P2P node
-    Node->>Network: Join network
-
-    %% Incoming Message Flow
-    Network->>Node: Receive message
-    Node->>GRPC: Stream event
-    GRPC->>Client: Emit P2PEvent
-    Client->>Agent: handleMessage()
-
-    %% Outgoing Message Flow
-    Agent->>Client: sendMessage()
-    Client->>GRPC: SendMessage RPC
-    GRPC->>Node: Forward message
-    Node->>Network: Send to peer
-
-    %% Error Handling
-    Node-->>GRPC: Error event
-    GRPC-->>Client: Stream error
-    Client-->>Agent: Error callback
-```
-
-### Components
-
-1. **P2P Node (p2p-node.js)**
-
-   - Standalone Node.js process
-   - Handles actual P2P networking
-   - Exposes gRPC server on port 50051 (default)
-   - Defined in `sdk/p2p-node.js`
-
-2. **gRPC Interface (P2PGrpcClient)**
-
-   - Manages communication between Agent and P2P Node
-   - Implements event-based message handling
-   - Located in `sdk/src/grpc/client.ts`
-
-3. **Message Flow**
-
-   ```
-   Incoming:
-   P2P Network -> P2P Node -> gRPC Stream -> P2PGrpcClient -> Agent Handler
-
-   Outgoing:
-   Agent -> P2PGrpcClient -> gRPC -> P2P Node -> P2P Network
-   ```
-
-4. **Message Processing**
-   - Each incoming message is processed using OpenAI's LLM
-   - Responses are automatically sent back to the message sender
-   - Error handling and logging is built in
+PeerFund is open-source and licensed under the MIT License.
