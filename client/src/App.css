@@ -1,0 +1,121 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* App.css */
+body {
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(173, 216, 230, 0.1), rgba(221, 160, 221, 0.1), rgba(255, 255, 255, 0.1));
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  backdrop-filter: blur(5px); /* Add a slight blur effect */
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 3px 6px rgba(31, 38, 135, 0.2); /* Reduced shadow */
+}
+
+.navbar, .card, .form-control, .btn {
+  border-radius: 10px;
+}
+
+.btn-primary {
+  background-color: rgba(0, 123, 255, 0.8);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: rgba(0, 123, 255, 1);
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Slightly reduced hover shadow */
+}
+
+/* src/App.css */
+.validation-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.validation-badge.verified {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.validation-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.validation-history {
+  list-style: none;
+  padding: 0;
+}
+
+.validation-history li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.validation-history .status {
+  font-weight: bold;
+}
+
+.validation-history .verified {
+  color: green;
+}
+
+.validation-history .pending {
+  color: orange;
+}

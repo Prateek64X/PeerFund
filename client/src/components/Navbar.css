@@ -1,0 +1,12 @@
+/* src/components/Navbar.css */
+.navbar {
+    padding: 0.5rem 1rem; /* Adjust padding to keep navbar compact */
+  }
+  
+  .navbar-brand {
+    font-size: 1.25rem; /* Keep brand text size consistent */
+  }
+  
+  .nav-link {
+    font-size: 1rem; /* Keep link text size consistent */
+  }

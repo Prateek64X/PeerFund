@@ -1,0 +1,57 @@
+/* src/components/ProjectCard.css */
+.duckai-evaluation {
+  background: linear-gradient(135deg, #f3e5f5 0%, #ffe0e0 50%, #fff3e0 100%); /* Purple, pink, orange gradient */
+  padding: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top: 1px solid #ddd; /* Separator line */
+}
+
+.evaluation-point {
+  padding: 8px;
+  text-align: center;
+}
+
+.evaluation-point small {
+  color: #555; /* Dark gray for label */
+  font-size: 12px;
+  display: block;
+}
+
+.evaluation-point .evaluation-score {
+  color: #2196F3; /* Blue for score */
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.evaluation-point.total-points .evaluation-score {
+  font-size: 20px; /* Larger font for total points */
+}
+
+.evaluation-point.total-points .out-of {
+  font-size: 12px;
+  color: #777; /* Gray for "/100" */
+}
+
+/* Thin separator using Bootstrap's border utility */
+.border-end {
+  border-right: 1px solid #ddd !important; /* Very thin separator */
+}
+
+/* Compact card styles */
+.card {
+  border: none;
+}
+
+.card-body {
+  padding: 12px; /* Reduced padding */
+}
+
+.card-title {
+  font-size: 18px; /* Smaller title */
+}
+
+.card-text {
+  font-size: 14px; /* Smaller text */
+}

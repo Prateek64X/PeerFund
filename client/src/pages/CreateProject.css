@@ -1,0 +1,63 @@
+/* src/pages/CreateProject.css */
+.create-project-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+    background: linear-gradient(135deg, #e3f2fd 0%, #ffeff3 100%); /* Light blue to light red gradient */
+  }
+  
+  .create-project-container {
+    flex: 1; /* Take up remaining space */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    padding: 20px;
+  }
+  
+  .create-project-card {
+    background: white; /* White card background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 100%; /* Full width of the container */
+    max-width: 800px; /* Increased max-width for better usability */
+    padding: 30px; /* Increased padding for better spacing */
+  }
+  
+  .create-project-card h1 {
+    color: #2196F3; /* Blue heading */
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .create-project-card .form-label {
+    color: #555; /* Dark gray for labels */
+    font-weight: 500;
+  }
+  
+  .create-project-card .form-control {
+    border-radius: 5px; /* Rounded input fields */
+    border: 1px solid #ddd; /* Light border */
+    padding: 10px;
+  }
+  
+  .create-project-card .form-control:focus {
+    border-color: #2196F3; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.5); /* Blue glow */
+  }
+  
+  .create-project-card .btn-primary {
+    background-color: #2196F3; /* Blue button */
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .create-project-card .btn-primary:hover {
+    background-color: #1e88e5; /* Darker blue on hover */
+  }
+  
+  .create-project-card .alert {
+    border-radius: 5px; /* Rounded alerts */
+    margin-top: 20px;
+  }
